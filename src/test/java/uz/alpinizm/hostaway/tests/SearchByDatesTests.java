@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SearchByDatesTests extends BaseTest {
 
     // components
-    private SearchBar searchBar = new SearchBar();
-    private DatePicker datePicker = new DatePicker();
+    private final SearchBar searchBar = new SearchBar();
+    private final DatePicker datePicker = new DatePicker();
 
     // dates related variables
     LocalDate localDateTime = LocalDateTime.now().toLocalDate();
@@ -80,6 +80,11 @@ public class SearchByDatesTests extends BaseTest {
         searchBar.getCheckIn().click();
         String actualCurrentMonth = datePicker.getLeftMonth().text().split(" ")[0];
         String actualNextMonth = datePicker.getRightMonth().text().split(" ")[0];
+        assertEquals(getMonthName(currentMonth, FULL), actualCurrentMonth);
+        assertEquals(getMonthName(nextMonth, FULL), actualNextMonth);
+        searchBar.getCheckIn().click();
+
+        searchBar.getCheckOut().click();
         assertEquals(getMonthName(currentMonth, FULL), actualCurrentMonth);
         assertEquals(getMonthName(nextMonth, FULL), actualNextMonth);
     }
@@ -166,10 +171,6 @@ public class SearchByDatesTests extends BaseTest {
     private void verifyCheckInCheckOutLabel(String expectedCheckInCheckOutLabel) {
         String actualCheckInCheckOutLabel = datePicker.getCheckInDateLabel().text().split("\n")[0];
         assertEquals(expectedCheckInCheckOutLabel, actualCheckInCheckOutLabel);
-    }
-
-    private void pickADay(ElementsCollection availableDays, int day) {
-        availableDays.findBy(text(valueOf(day))).click();
     }
 }
 
