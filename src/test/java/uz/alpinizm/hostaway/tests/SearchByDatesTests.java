@@ -102,6 +102,11 @@ public class SearchByDatesTests extends BaseTest {
         String actualNextMonth = datePicker.getRightMonth().text().split(" ")[0];
         assertEquals(getMonthName(currentMonth, FULL), actualCurrentMonth);
         assertEquals(getMonthName(nextMonth, FULL), actualNextMonth);
+        searchBar.getCheckIn().click();
+
+        searchBar.getCheckOut().click();
+        assertEquals(getMonthName(currentMonth, FULL), actualCurrentMonth);
+        assertEquals(getMonthName(nextMonth, FULL), actualNextMonth);
         datePicker.getClearDatesButton().click();
     }
 
